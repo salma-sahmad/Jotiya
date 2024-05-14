@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Jotiya</string>
+    <string name="intro_titre">L3ezla</string>
+    <string name="intro_slogon">bla bla do ur shopping bli bli yoy yoyy style\n bla bla do ur shopping bli bli yoy yoyy</string>
+    <string name="intro_register">Already have an account? <font color="#6033ba">Sign In</font></string>
+    <string name="logintoregister"><font color="#DCC4A4">Don\'t have an account?</font> <font color="black">Register</font></string>
+    <string name="registertologin"><font color="white">Already have an account?</font>  <font color="black">Sign In</font></string>
+    <string name="show_less">Show less</string>
+    <string name="show_more">Show more</string>
+    <string name="bannerTitle">Your Thrift Store\n \t\t\t\t\t\tJust Between you<font color="#5D4227">r Hands</font></string>
+</resources>

@@ -1,0 +1,619 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.DetailActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="42dp"
+                android:layout_marginEnd="16dp">
+
+                <ImageView
+                    android:id="@+id/backBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/back" />
+
+                <ImageView
+                    android:id="@+id/favBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/fav_icon" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/slider"
+                android:layout_width="match_parent"
+                android:layout_height="290dp"
+                android:layout_margin="16dp"
+                android:background="@drawable/grey_bg"
+                android:padding="16dp" />
+            <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                android:id="@+id/dotIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:visibility="gone"
+                app:dotsColor="@color/lightGrey"
+                app:dotsCornerRadius="8dp"
+                app:dotsSize="6dp"
+                app:dotsSpacing="2dp"
+                app:dotsWidthFactor="2.5"
+                android:layout_gravity="center"
+                app:selectedDotColor="@color/purple"
+                tools:visibility="visible" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/colorList"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:clipToPadding="false"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_margin="16dp">
+
+                <TextView
+                    android:id="@+id/titleTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="title"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="23sp"/>
+
+                <TextView
+                    android:id="@+id/priceTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="$0"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/descriptionTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:layout_margin="16dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="75dp"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    style="@android:style/Widget.Button"
+                    android:id="@+id/addToCartBtn"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/banner"
+                    android:text="Buy Now" />
+
+                <ImageButton
+                    android:id="@+id/cartBtn"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/grey_bg"
+                    android:layout_margin="8dp"
+                    app:srcCompat="@drawable/btn_2"
+                    app:tint="@color/black" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    tools:context=".activity.DetailActivity">-->
+
+<!--    <ScrollView-->
+<!--        android:id="@+id/scrollView4"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+
+<!--        <LinearLayout-->
+<!--            android:id="@+id/LinearLayout1"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical">-->
+
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content">-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/imageView3"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="16dp"-->
+<!--                    android:layout_marginTop="34dp"-->
+<!--                    android:padding="8dp"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    app:srcCompat="@drawable/arrow" />-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/imageView11"-->
+<!--                    android:layout_width="31dp"-->
+<!--                    android:layout_height="27dp"-->
+<!--                    android:layout_marginEnd="16dp"-->
+<!--                    android:padding="2dp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@id/imageView3"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/imageView3"-->
+<!--                    app:srcCompat="@drawable/favbtn" />-->
+
+
+<!--                <View-->
+<!--                    android:id="@+id/view"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="290dp"-->
+<!--                    android:layout_marginStart="16dp"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:layout_marginEnd="16dp"-->
+<!--                    android:background="@drawable/bg_detail"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/imageView3" />-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/sacPic"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="16dp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/view"-->
+<!--                    app:layout_constraintEnd_toEndOf="@+id/view"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/view"-->
+<!--                    tools:srcCompat="@drawable/pic2" />-->
+
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/linearLayout4"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_marginStart="16dp"-->
+<!--                    android:layout_marginTop="16dp"-->
+<!--                    android:layout_marginEnd="16dp"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/view">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/titreTxt"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:text="product 1 bla bla bli"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="23dp"-->
+<!--                        android:textStyle="bold" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/prixTxt"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="500 DH"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="22sp" />-->
+<!--                </LinearLayout>-->
+
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/LinearLayout5"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_margin="16dp"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/linearLayout4">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/textView7"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:text="miu miu bag" />-->
+
+<!--                </LinearLayout>-->
+
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/LinearLayout6"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_marginStart="16dp"-->
+<!--                    android:layout_marginTop="5dp"-->
+<!--                    android:layout_marginEnd="16dp"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/LinearLayout5">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/textView73"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:text="Taille S" />-->
+
+<!--                </LinearLayout>-->
+
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/linearLayout5"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_marginStart="16dp"-->
+<!--                    android:layout_marginTop="5dp"-->
+<!--                    android:layout_marginEnd="16dp"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/LinearLayout6">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/textView74"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:text="Bonne etat " />-->
+
+<!--                </LinearLayout>-->
+
+
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:id="@+id/constraintLayout"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_marginTop="10dp">-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_marginTop="16dp"-->
+<!--                    android:orientation="vertical">-->
+
+<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="12dp"-->
+<!--                        android:layout_marginEnd="12dp"-->
+<!--                        android:background="@drawable/bg_detail">-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/textView23"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="16dp"-->
+<!--                            android:layout_marginTop="10dp"-->
+<!--                            android:text="Description"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="18sp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imageView10"-->
+<!--                            android:layout_width="25dp"-->
+<!--                            android:layout_height="26dp"-->
+<!--                            android:layout_marginTop="8dp"-->
+
+<!--                            app:layout_constraintStart_toStartOf="@+id/textView23"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/textView23"-->
+<!--                            app:srcCompat="@drawable/desc" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/textView24"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="16dp"-->
+<!--                            android:text="90s miu miu bag with golden details summer \ncollection worn once real leather"-->
+<!--                            app:layout_constraintBottom_toBottomOf="@+id/imageView10"-->
+<!--                            app:layout_constraintStart_toEndOf="@+id/imageView10"-->
+<!--                            app:layout_constraintTop_toTopOf="@+id/imageView10" />-->
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imageView130"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginEnd="16dp"-->
+
+<!--                            app:layout_constraintBottom_toBottomOf="@+id/textView24"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="@+id/textView23"-->
+<!--                            app:srcCompat="@drawable/arrow_detail" />-->
+
+<!--                        <View-->
+<!--                            android:id="@+id/view5"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="1dp"-->
+<!--                            android:layout_marginStart="16dp"-->
+<!--                            android:layout_marginTop="16dp"-->
+<!--                            android:layout_marginEnd="16dp"-->
+<!--                            android:background="#ABABAB"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/textView24" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/textView26"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginTop="10dp"-->
+<!--                            android:text="Shipping"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="18sp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            app:layout_constraintStart_toStartOf="@+id/imageView10"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/view5" />-->
+
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imageView14"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginTop="8dp"-->
+<!--                            android:layout_marginBottom="16dp"-->
+
+<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                            app:layout_constraintStart_toStartOf="@+id/textView26"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/textView26"-->
+<!--                            app:layout_constraintVertical_bias="0.0"-->
+<!--                            app:srcCompat="@drawable/truck" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/textView270"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="16dp"-->
+<!--                            android:text="delivery policy bla bla bli "-->
+<!--                            app:layout_constraintBottom_toBottomOf="@+id/imageView14"-->
+<!--                            app:layout_constraintStart_toEndOf="@+id/imageView14"-->
+<!--                            app:layout_constraintTop_toTopOf="@+id/imageView14"-->
+<!--                            app:layout_constraintVertical_bias="0.0" />-->
+
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imageView150"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginTop="24dp"-->
+
+<!--                            android:layout_marginEnd="16dp"-->
+<!--                            app:layout_constraintBottom_toBottomOf="@+id/textView270"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="@+id/textView26"-->
+<!--                            app:layout_constraintVertical_bias="0.0"-->
+<!--                            app:srcCompat="@drawable/arrow_detail" />-->
+
+<!--                        <View-->
+<!--                            android:id="@+id/view6"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="1dp"-->
+<!--                            android:layout_marginStart="16dp"-->
+<!--                            android:layout_marginTop="16dp"-->
+<!--                            android:layout_marginEnd="16dp"-->
+<!--                            android:background="#ABABAB"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/textView270" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/textView260"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginTop="10dp"-->
+<!--                            android:text="Seller Information"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="18sp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            app:layout_constraintStart_toStartOf="@+id/imageView14"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/view6" />-->
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imageView140"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginTop="8dp"-->
+<!--                            android:layout_marginBottom="16dp"-->
+<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                            app:layout_constraintStart_toStartOf="@+id/textView260"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/textView260"-->
+<!--                            app:srcCompat="@drawable/person" />-->
+<!--                        <TextView-->
+<!--                            android:id="@+id/textView277"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="16dp"-->
+<!--                            android:text="Al3arandass "-->
+<!--                            app:layout_constraintBottom_toBottomOf="@+id/imageView140"-->
+<!--                            app:layout_constraintStart_toEndOf="@+id/imageView140"-->
+<!--                            app:layout_constraintTop_toTopOf="@+id/imageView140" />-->
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imageView155"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginEnd="16dp"-->
+<!--                            app:layout_constraintBottom_toBottomOf="@+id/textView277"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="@+id/textView260"-->
+<!--                            app:srcCompat="@drawable/arrow_detail" />-->
+
+
+
+<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--                    &lt;!&ndash;                    <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:id="@+id/textView15"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:layout_marginStart="16dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:layout_weight="1"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:text="Description"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:textColor="@color/chocolate"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:textSize="16sp"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:textStyle="bold" />&ndash;&gt;-->
+
+<!--&lt;!&ndash;                    <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:id="@+id/descriptionTxt"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:layout_marginStart="18dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:layout_marginTop="10dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:layout_marginEnd="10dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:inputType="textMultiLine"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:text="This hand bag with a little details in gold 2020 collection&ndash;&gt;-->
+<!--&lt;!&ndash; worn once still have the original box. "&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:textColor="@color/black" />&ndash;&gt;-->
+
+<!--&lt;!&ndash;                    <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:id="@+id/textView155"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:layout_marginStart="16dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:layout_marginTop="10dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:layout_weight="1"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:text="Shipping "&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:textColor="@color/chocolate"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:textSize="16sp"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:textStyle="bold" />&ndash;&gt;-->
+
+<!--&lt;!&ndash;                    <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:id="@+id/ShippingTxt"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:layout_marginStart="18dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:layout_marginTop="10dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:layout_marginEnd="10dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:inputType="textMultiLine"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:text="This hand bag with a little details in gold 2020 collection&ndash;&gt;-->
+<!--&lt;!&ndash; worn once still have the original box. "&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:textColor="@color/black" />&ndash;&gt;-->
+
+<!--&lt;!&ndash;                    <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:id="@+id/textView16"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:layout_marginStart="16dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:layout_marginTop="16dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:text="Seller Information"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:textColor="@color/chocolate"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:textSize="16sp"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:textStyle="bold" />&ndash;&gt;-->
+
+<!--&lt;!&ndash;                    <LinearLayout&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:layout_height="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:layout_marginStart="18dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:layout_marginTop="16dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:layout_marginEnd="24dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:background="@drawable/bg_detail"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:gravity="center"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:orientation="horizontal"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:padding="16dp">&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        <ImageView&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:id="@+id/imageView13"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                            app:srcCompat="@drawable/btn_5" />&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:id="@+id/textView17"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_marginStart="8dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_weight="1"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:text="al3arandass"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:textColor="@color/black"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:textStyle="bold" />&ndash;&gt;-->
+
+
+<!--&lt;!&ndash;                        <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:id="@+id/textView18"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:layout_height="33dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:background="@drawable/bg_detail"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:gravity="center"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:paddingStart="16dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:paddingEnd="16dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:text="View Profile"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:textColor="@color/black"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:textSize="12sp"&ndash;&gt;-->
+<!--&lt;!&ndash;                            android:textStyle="bold" />&ndash;&gt;-->
+<!--&lt;!&ndash;                    </LinearLayout>&ndash;&gt;-->
+<!--                </LinearLayout>-->
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
+<!--        </LinearLayout>-->
+<!--    </ScrollView>-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:gravity="bottom"-->
+<!--        android:orientation="vertical"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/scrollView4"-->
+<!--        android:layout_marginTop="10dp">-->
+
+<!--        <androidx.appcompat.widget.AppCompatButton-->
+<!--            android:id="@+id/button2"-->
+<!--            style="@android:style/Widget.Button"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginStart="16dp"-->
+<!--            android:layout_marginEnd="16dp"-->
+<!--            android:background="@drawable/banner"-->
+<!--            android:text="Add To Cart"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="18sp" />-->
+<!--    </LinearLayout>-->
+
+
+<!--</androidx.constraintlayout.widget.ConstraintLayout>-->

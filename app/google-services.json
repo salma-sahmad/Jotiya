@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "550333518952",
+    "project_id": "jotiya-37cd0",
+    "storage_bucket": "jotiya-37cd0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:550333518952:android:881ba7120c6b80d20a57dd",
+        "android_client_info": {
+          "package_name": "com.example.l3ezlaapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVw4GmRM9C5nTt8xziE9qLFEnND5OcKD4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
