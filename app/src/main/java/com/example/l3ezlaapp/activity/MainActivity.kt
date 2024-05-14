@@ -1,7 +1,9 @@
 package com.example.l3ezlaapp.activity
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
@@ -23,6 +25,7 @@ import com.example.l3ezlaapp.databinding.ActivityMainBinding
 import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseOptions
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class MainActivity : AppCompatActivity() {
@@ -75,6 +78,30 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+//    override fun onResume() {
+//        super.onResume()
+//        listenForProductChanges()
+//    }
+//
+//    private fun listenForProductChanges() {
+//        val db = FirebaseFirestore.getInstance()
+//        db.collection("products")
+//            .addSnapshotListener { snapshot, exception ->
+//                if (exception != null) {
+//                    // Handle error
+//                    Log.e(TAG, "Error fetching products: ${exception.message}")
+//                    return@addSnapshotListener
+//                }
+//
+//                if (snapshot != null) {
+//                    // Process the snapshot and update UI
+//                    val products = snapshot.toObjects(Product::class.java)
+//                    // Update UI with the list of products
+//                    // For example, you can update a RecyclerView adapter with the new list of products
+//                }
+//            }
+//    }
 
     private fun initBanner() {
         binding.progressBarBanner.visibility = View.VISIBLE

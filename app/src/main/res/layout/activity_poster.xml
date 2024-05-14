@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.DetailActivity">
@@ -32,6 +31,19 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/back" />
 
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sale Your Products"
+                    android:textColor="@color/black"
+                    android:textSize="23sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <ImageView
                     android:id="@+id/favBtn"
                     android:layout_width="wrap_content"
@@ -58,12 +70,31 @@
                 android:layout_height="wrap_content"
                 android:text="Titre du produit"
                 android:layout_margin="16dp"/>
+
+                <EditText
+                    android:id="@+id/titleEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter product title"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"/>
+
             <TextView
                 android:id="@+id/detailsTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Description"
                 android:layout_margin="16dp"/>
+
+                <EditText
+                    android:id="@+id/descriptionEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter product title"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"/>
             <TextView
                 android:id="@+id/prixTxt"
                 android:layout_width="match_parent"
@@ -71,40 +102,82 @@
                 android:text="Prix"
                 android:layout_margin="16dp"/>
 
-                <!-- res/layout/activity_publish.xml -->
-                <RelativeLayout
+                <EditText
+                    android:id="@+id/priceEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="333dp">
+                    android:layout_height="wrap_content"
+                    android:hint="Enter product title"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"/>
 
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/addPicBtn"
-                        style="@android:style/Widget.Button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/banner"
-                        android:text="Add pictures"
-                        android:textColor="@color/white"
-                        android:textSize="18sp" />
+                <!-- res/layout/activity_publish.xml -->
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="333dp">-->
 
-                    <ImageView
-                        android:id="@+id/iv_picture"
+<!--                    <androidx.appcompat.widget.AppCompatButton-->
+<!--                        android:id="@+id/addPicBtn"-->
+<!--                        style="@android:style/Widget.Button"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_centerHorizontal="true"-->
+<!--                        android:layout_marginStart="8dp"-->
+<!--                        android:layout_marginTop="8dp"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:background="@drawable/banner"-->
+<!--                        android:text="Add pictures"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:textSize="18sp" />-->
+
+<!--&lt;!&ndash;                    <ImageView&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:id="@+id/iv_picture"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:layout_height="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:layout_below="@id/addPicBtn"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:layout_marginTop="20dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:scaleType="centerCrop" />&ndash;&gt;-->
+<!--                    <androidx.recyclerview.widget.RecyclerView-->
+<!--                        android:id="@+id/recyclerView"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_marginTop="20dp"/>-->
+<!--                </RelativeLayout>-->
+
+
+
+                <Button
+                    android:id="@+id/addPicBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:backgroundTint="@color/chocolate"
+                    android:text="Add pictures"
+                    android:layout_gravity="center"
+                    app:layout_constraintBottom_toTopOf="@+id/viewPager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/viewPager"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_below="@id/addPicBtn"
-                        android:layout_marginTop="20dp"
-                        android:scaleType="centerCrop" />
-                </RelativeLayout>
+                        android:layout_height="200dp"
+                        android:background="@drawable/grey_bg"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_margin="20dp"/>
 
-<!--            <TextView-->
-<!--                android:id="@+id/descriptionTxt"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="TextView"-->
-<!--                android:layout_margin="16dp"/>-->
+
+                <Button
+                    android:id="@+id/postButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Post Product for Sale"
+                    android:backgroundTint="@color/chocolate"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="16dp"/>
             </LinearLayout>
 
 <!--            <LinearLayout-->
