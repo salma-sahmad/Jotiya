@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.l3ezlaapp.Model.ItemModel
 import com.example.l3ezlaapp.Model.SliderModel
+import com.example.l3ezlaapp.activity.Product
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -70,5 +71,18 @@ class MainViewModel():ViewModel() {
             }
 
         })
+    }
+
+    fun addProductToPopular(product: Product) {
+        val currentList = _popular.value ?: mutableListOf()
+        val itemModel = ItemModel(
+            // Assuming Product attributes map to ItemModel attributes
+            title = product.title,
+            description = product.description,
+            picUrl = product.imageUrls,
+            price = product.price
+        )
+        currentList.add(itemModel)
+        _popular.value = currentList
     }
 }

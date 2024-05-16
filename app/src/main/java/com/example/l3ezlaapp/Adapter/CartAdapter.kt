@@ -16,13 +16,12 @@ class CartAdapter(
     private val listItemSelected: ArrayList<ItemModel>,
     context: Context,
     var changeNumberItemsListener: ChangeNumberItemsListener? = null
-
 ) : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
-    class ViewHolder(val binding: ViewholderCartBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    }
+    class ViewHolder(val binding: ViewholderCartBinding) : RecyclerView.ViewHolder(binding.root)
 
     private val managementCart = ManagmentCart(context)
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartAdapter.ViewHolder {
         val binding =
             ViewholderCartBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -34,35 +33,30 @@ class CartAdapter(
 
         holder.binding.titleTxt.text = item.title
         holder.binding.feeEachItem.text = "$${item.price}"
-        holder.binding.totalEachItem.text = "$${item.price}"
+        holder.binding.totalEachItem.text = "$${item.price * item.numberInCart}"
         holder.binding.numberItemTxt.text = item.numberInCart.toString()
-
 
         Glide.with(holder.itemView.context)
             .load(item.picUrl[0])
             .apply(RequestOptions().transform(CenterCrop()))
             .into(holder.binding.pic)
-//
+
 //        holder.binding.plusCartBtn.setOnClickListener {
 //            managementCart.plusItem(listItemSelected, position, object : ChangeNumberItemsListener {
 //                override fun onChanged() {
 //                    notifyDataSetChanged()
 //                    changeNumberItemsListener?.onChanged()
 //                }
-//
 //            })
 //        }
-        holder.binding.minusCartBtn.setOnClickListener {
-            managementCart.minusItem(
-                listItemSelected,
-                position,
-                object : ChangeNumberItemsListener {
-                    override fun onChanged() {
-                        notifyDataSetChanged()
-                        changeNumberItemsListener?.onChanged()
-                    }
 
-                })
+        holder.binding.minusCartBtn.setOnClickListener {
+            managementCart.minusItem(listItemSelected, position, object : ChangeNumberItemsListener {
+                override fun onChanged() {
+                    notifyDataSetChanged()
+                    changeNumberItemsListener?.onChanged()
+                }
+            })
         }
     }
 

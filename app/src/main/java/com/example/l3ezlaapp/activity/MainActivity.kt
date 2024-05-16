@@ -1,13 +1,16 @@
 package com.example.l3ezlaapp.activity
 
+
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,21 +25,34 @@ import com.example.l3ezlaapp.Model.SliderModel
 import com.example.l3ezlaapp.R
 import com.example.l3ezlaapp.ViewModel.MainViewModel
 import com.example.l3ezlaapp.databinding.ActivityMainBinding
-import com.google.firebase.FirebaseApp
-import com.google.firebase.FirebaseOptions
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 
 
 class MainActivity : AppCompatActivity() {
-    private  val  viewModel= MainViewModel()
+    private var viewModel= MainViewModel()
     private lateinit var binding: ActivityMainBinding
+
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+
+        // Check if there's a posted product
+        val postedProduct: Product? = intent.getParcelableExtra("postedProduct")
+
+        if (postedProduct != null) {
+            // Add the posted product to the popular list
+            viewModel.addProductToPopular(postedProduct)
+        }
+
+
+
 
 
 //        FirebaseDatabase.getInstance().setPersistenceEnabled(true) // Enable disk persistence, if needed
@@ -75,6 +91,12 @@ class MainActivity : AppCompatActivity() {
         val Poster = findViewById<ImageView>(R.id.imageView12)
         Poster.setOnClickListener {
             val intent = Intent(this@MainActivity, PosterActivity::class.java)
+            startActivity(intent)
+        }
+
+        val like = findViewById<ImageView>(R.id.imageView111)
+        like.setOnClickListener {
+            val intent = Intent(this@MainActivity, WishlistActivity::class.java)
             startActivity(intent)
         }
     }
@@ -143,5 +165,7 @@ class MainActivity : AppCompatActivity() {
         })
         viewModel.loadPupolar()
     }
+
+
 
 }

@@ -1,8 +1,8 @@
 package com.example.l3ezlaapp.activity
+
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.l3ezlaapp.Adapter.CartAdapter
 import com.example.l3ezlaapp.Helper.ChangeNumberItemsListener
@@ -10,17 +10,16 @@ import com.example.l3ezlaapp.Helper.ManagmentCart
 import com.example.l3ezlaapp.R
 import com.example.l3ezlaapp.databinding.ActivityCartBinding
 
-
 class CartActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCartBinding
-    private lateinit var managmentCart: ManagmentCart
-    private var tax: Double = 0.0
+    private lateinit var managementCart: ManagmentCart
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCartBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        managmentCart = ManagmentCart(this)
+        managementCart = ManagmentCart(this)
 
         setVariable()
         initCartList()
@@ -31,7 +30,7 @@ class CartActivity : AppCompatActivity() {
         binding.cartView.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.cartView.adapter =
-            CartAdapter(managmentCart.getListCart(), this, object : ChangeNumberItemsListener {
+            CartAdapter(managementCart.getListCart(), this, object : ChangeNumberItemsListener {
                 override fun onChanged() {
                     calculateCart()
                 }
@@ -39,18 +38,16 @@ class CartActivity : AppCompatActivity() {
 
         with(binding) {
             emptyTxt.visibility =
-                if (managmentCart.getListCart().isEmpty()) View.VISIBLE else View.GONE
+                if (managementCart.getListCart().isEmpty()) View.VISIBLE else View.GONE
             scroll.visibility =
-                if (managmentCart.getListCart().isEmpty()) View.GONE else View.VISIBLE
+                if (managementCart.getListCart().isEmpty()) View.GONE else View.VISIBLE
         }
     }
 
     private fun calculateCart() {
-//        val percentTax = 0.02
         val delivery = 10.0
-//        tax = Math.round((managmentCart.getTotalFee() * percentTax) * 100) / 100.0
-        val total = (managmentCart.getTotalFee()  + delivery)
-        val itemTotal =managmentCart.getTotalFee() * 100
+        val total = managementCart.getTotalFee() + delivery
+        val itemTotal = managementCart.getTotalFee()
 
         with(binding) {
             totalFeeTxt.text = "$$itemTotal"

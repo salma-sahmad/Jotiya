@@ -133,6 +133,50 @@ class PosterActivity : AppCompatActivity() {
     }
 
 
+//    private fun postProductToFirestore() {
+//        val title = binding.titleEditText.text.toString()
+//        val description = binding.descriptionEditText.text.toString()
+//        val price = binding.priceEditText.text.toString().toDouble() // Convert price to Double
+//
+//        // Upload images to Firebase Storage and get their URLs
+//        val imageUploadTasks = mutableListOf<Task<Uri>>()
+//        for (bitmap in images) {
+//            val imageUploadTask = uploadImageToFirebase(bitmap)
+//            imageUploadTasks.add(imageUploadTask)
+//        }
+//
+//        Tasks.whenAllSuccess<Uri>(imageUploadTasks).addOnSuccessListener { imageUrls ->
+//            // All images uploaded successfully, imageUrls contains URLs of all uploaded images
+//            val product = hashMapOf(
+//                "title" to title,
+//                "description" to description,
+//                "price" to price,
+//                "imageUrls" to imageUrls.map { it.toString() } // Convert Uri to String
+//            )
+//
+//            // Add the product to a collection named "products" in Firestore
+//            val db = FirebaseFirestore.getInstance()
+//            db.collection("products")
+//                .add(product)
+//                .addOnSuccessListener { documentReference ->
+//                    Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
+//                    // Show a success message or navigate to the main activity
+//                    Toast.makeText(this, "Product posted successfully!", Toast.LENGTH_SHORT).show()
+//                    startActivity(Intent(this@PosterActivity, MainActivity::class.java))
+//                    finish()
+//                }
+//                .addOnFailureListener { e ->
+//                    Log.w(TAG, "Error adding document", e)
+//                    // Show an error message
+//                    Toast.makeText(this, "Failed to post product: ${e.message}", Toast.LENGTH_SHORT).show()
+//                }
+//        }.addOnFailureListener { e ->
+//            // Handle failure when uploading images
+//            Log.w(TAG, "Error uploading images", e)
+//            Toast.makeText(this, "Failed to upload images: ${e.message}", Toast.LENGTH_SHORT).show()
+//        }
+
+
     private fun postProductToFirestore() {
         val title = binding.titleEditText.text.toString()
         val description = binding.descriptionEditText.text.toString()
@@ -147,11 +191,11 @@ class PosterActivity : AppCompatActivity() {
 
         Tasks.whenAllSuccess<Uri>(imageUploadTasks).addOnSuccessListener { imageUrls ->
             // All images uploaded successfully, imageUrls contains URLs of all uploaded images
-            val product = hashMapOf(
-                "title" to title,
-                "description" to description,
-                "price" to price,
-                "imageUrls" to imageUrls.map { it.toString() } // Convert Uri to String
+            val product = Product(
+                title = title,
+                description = description,
+                imageUrls = ArrayList(imageUrls.map { it.toString() }), // Convert Uri to String
+                price = price
             )
 
             // Add the product to a collection named "products" in Firestore
@@ -162,7 +206,11 @@ class PosterActivity : AppCompatActivity() {
                     Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
                     // Show a success message or navigate to the main activity
                     Toast.makeText(this, "Product posted successfully!", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this@PosterActivity, MainActivity::class.java))
+                    // Redirect to the main activity
+                    startActivity(Intent(this@PosterActivity, MainActivity::class.java).apply {
+                        // Pass the posted product to the main activity
+                        putExtra("postedProduct", product)
+                    })
                     finish()
                 }
                 .addOnFailureListener { e ->
@@ -176,6 +224,7 @@ class PosterActivity : AppCompatActivity() {
             Toast.makeText(this, "Failed to upload images: ${e.message}", Toast.LENGTH_SHORT).show()
         }
     }
+
 
 
     private fun checkUserAuthentication() {
