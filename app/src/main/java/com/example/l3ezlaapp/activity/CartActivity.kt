@@ -7,12 +7,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.l3ezlaapp.Adapter.CartAdapter
 import com.example.l3ezlaapp.Helper.ChangeNumberItemsListener
 import com.example.l3ezlaapp.Helper.ManagmentCart
+import com.example.l3ezlaapp.Model.ItemModel
 import com.example.l3ezlaapp.R
 import com.example.l3ezlaapp.databinding.ActivityCartBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class CartActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCartBinding
     private lateinit var managementCart: ManagmentCart
+    private lateinit var userId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +28,12 @@ class CartActivity : AppCompatActivity() {
         setVariable()
         initCartList()
         calculateCart()
+
+        // Retrieve current user's ID
+        userId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
+
+        // Load user-specific cart items from Firestore
+        loadCartFromFirestore(userId)
     }
 
     private fun initCartList() {
@@ -50,13 +60,38 @@ class CartActivity : AppCompatActivity() {
         val itemTotal = managementCart.getTotalFee()
 
         with(binding) {
-            totalFeeTxt.text = "$$itemTotal"
-            deliveryTxt.text = "$$delivery"
-            totalTxt.text = "$$total"
+            totalFeeTxt.text = "$itemTotal MAD"
+            deliveryTxt.text = "$delivery MAD"
+            totalTxt.text = "$total MAD"
         }
     }
 
     private fun setVariable() {
         binding.backBtn.setOnClickListener { finish() }
+    }
+
+    private fun loadCartFromFirestore(userId: String) {
+        val db = FirebaseFirestore.getInstance()
+        val cartRef = db.collection("users").document(userId).collection("cart")
+
+        cartRef.get()
+            .addOnSuccessListener { documents ->
+                val cartItems = mutableListOf<ItemModel>()
+
+                for (document in documents) {
+                    val item = document.toObject(ItemModel::class.java)
+                    cartItems.add(item)
+                }
+
+                // Add each retrieved cart item to your local cart manager
+                cartItems.forEach { managementCart.addItemsToCart(it,userId) }
+
+                // Refresh the UI
+                initCartList()
+                calculateCart()
+            }
+            .addOnFailureListener { exception ->
+                // Handle errors
+            }
     }
 }

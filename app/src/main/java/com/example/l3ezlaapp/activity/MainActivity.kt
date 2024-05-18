@@ -1,129 +1,61 @@
 package com.example.l3ezlaapp.activity
 
-
-import android.content.ContentValues.TAG
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import com.example.l3ezlaapp.Adapter.PopularAdapter
 import com.example.l3ezlaapp.Adapter.SliderAdapter
-//import com.example.l3ezlaapp.Adapter.BrandAdapter
-//import com.example.l3ezlaapp.Adapter.PopularAdapter
-//import com.example.l3ezlaapp.Adapter.SliderAdapter
+import com.example.l3ezlaapp.Model.ItemModel
 import com.example.l3ezlaapp.Model.SliderModel
 import com.example.l3ezlaapp.R
 import com.example.l3ezlaapp.ViewModel.MainViewModel
 import com.example.l3ezlaapp.databinding.ActivityMainBinding
-import com.google.firebase.firestore.FirebaseFirestore
-
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
-    private var viewModel= MainViewModel()
+    private lateinit var viewModel: MainViewModel
     private lateinit var binding: ActivityMainBinding
-
-
-
-
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        auth = FirebaseAuth.getInstance()
+        sharedPreferences = getSharedPreferences("user_data", MODE_PRIVATE)
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
+        if (!isUserLoggedIn()) {
+            navigateToLoginActivity()
+            return
+        }
+
+        val userId = getUserId()
 
         // Check if there's a posted product
-        val postedProduct: Product? = intent.getParcelableExtra("postedProduct")
-
+        val postedProduct: ItemModel? = intent.getParcelableExtra("postedProduct")
         if (postedProduct != null) {
-            // Add the posted product to the popular list
             viewModel.addProductToPopular(postedProduct)
         }
 
-
-
-
-
-//        FirebaseDatabase.getInstance().setPersistenceEnabled(true) // Enable disk persistence, if needed
-
         initBanner()
-        initPopular()
+        userId?.let { initPopular(it) }
 
-        /**
-         * to navigate to the details activity
-         */
-//        val clothesCategory = findViewById<ImageView>(R.id.imageView10)
-//        clothesCategory.setOnClickListener {
-//            // Navigate to the product detail page here
-//            val intent = Intent(this@MainActivity, DetailActivity::class.java)
-//            startActivity(intent)
-//        }
-
-        /**
-         * to navigate to cart page
-         */
-        val cartImageView = findViewById<ImageView>(R.id.imageView163)
-        cartImageView.setOnClickListener {
-            val intent = Intent(this@MainActivity, CartActivity::class.java)
-            startActivity(intent)
-        }
-
-        /**
-         * to navigate to profile page
-         */
-        val profileImageView = findViewById<ImageView>(R.id.imageView166)
-        profileImageView.setOnClickListener {
-            val intent = Intent(this@MainActivity, ProfileActivity::class.java)
-            startActivity(intent)
-        }
-
-        val Poster = findViewById<ImageView>(R.id.imageView12)
-        Poster.setOnClickListener {
-            val intent = Intent(this@MainActivity, PosterActivity::class.java)
-            startActivity(intent)
-        }
-
-        val like = findViewById<ImageView>(R.id.imageView111)
-        like.setOnClickListener {
-            val intent = Intent(this@MainActivity, WishlistActivity::class.java)
-            startActivity(intent)
-        }
+        setupNavigation()
     }
-
-//    override fun onResume() {
-//        super.onResume()
-//        listenForProductChanges()
-//    }
-//
-//    private fun listenForProductChanges() {
-//        val db = FirebaseFirestore.getInstance()
-//        db.collection("products")
-//            .addSnapshotListener { snapshot, exception ->
-//                if (exception != null) {
-//                    // Handle error
-//                    Log.e(TAG, "Error fetching products: ${exception.message}")
-//                    return@addSnapshotListener
-//                }
-//
-//                if (snapshot != null) {
-//                    // Process the snapshot and update UI
-//                    val products = snapshot.toObjects(Product::class.java)
-//                    // Update UI with the list of products
-//                    // For example, you can update a RecyclerView adapter with the new list of products
-//                }
-//            }
-//    }
 
     private fun initBanner() {
         binding.progressBarBanner.visibility = View.VISIBLE
@@ -147,25 +79,72 @@ class MainActivity : AppCompatActivity() {
         binding.viewpagerSlider.setPageTransformer(compositePageTransformer)
         if (images.size > 1) {
             binding.dotIndicator.visibility = View.VISIBLE
-//            binding.dotIndicator.attachTo(binding.viewpagerSlider)
             binding.dotIndicator.setViewPager2(binding.viewpagerSlider)
-
-        }else {
+        } else {
             binding.dotIndicator.visibility = View.GONE
         }
     }
 
-
-    private fun initPopular() {
+    private fun initPopular(s: String) {
         binding.progressBarPopular.visibility = View.VISIBLE
-        viewModel.popular.observe(this, Observer {
-            binding.viewPopular.layoutManager = GridLayoutManager(this@MainActivity, 2)
-            binding.viewPopular.adapter = PopularAdapter(it)
-            binding.progressBarPopular.visibility = View.GONE
+        viewModel.loadPopular().observe(this, Observer<List<ItemModel>> { items ->
+            items?.let {
+                binding.viewPopular.layoutManager = GridLayoutManager(this@MainActivity, 2)
+                binding.viewPopular.adapter = PopularAdapter(it as MutableList<ItemModel>)
+                binding.progressBarPopular.visibility = View.GONE
+            }
         })
-        viewModel.loadPupolar()
+    }
+    private fun setupNavigation() {
+        val cartImageView = findViewById<ImageView>(R.id.imageView163)
+        val profileImageView = findViewById<ImageView>(R.id.imageView166)
+        val posterImageView = findViewById<ImageView>(R.id.imageView12)
+        val likeImageView = findViewById<ImageView>(R.id.imageView111)
+
+        if (cartImageView == null) {
+            Log.e("MainActivity", "cartImageView is null")
+        } else {
+            cartImageView.setOnClickListener {
+                startActivity(Intent(this@MainActivity, CartActivity::class.java))
+            }
+        }
+
+        if (profileImageView == null) {
+            Log.e("MainActivity", "profileImageView is null")
+        } else {
+            profileImageView.setOnClickListener {
+                startActivity(Intent(this@MainActivity, ProfileActivity::class.java))
+            }
+        }
+
+        if (posterImageView == null) {
+            Log.e("MainActivity", "posterImageView is null")
+        } else {
+            posterImageView.setOnClickListener {
+                startActivity(Intent(this@MainActivity, PosterActivity::class.java))
+            }
+        }
+
+        if (likeImageView == null) {
+            Log.e("MainActivity", "likeImageView is null")
+        } else {
+            likeImageView.setOnClickListener {
+                startActivity(Intent(this@MainActivity, WishlistActivity::class.java))
+            }
+        }
     }
 
+    private fun isUserLoggedIn(): Boolean {
+        return sharedPreferences.getBoolean("isLoggedIn", false)
+    }
 
+    private fun getUserId(): String? {
+        return sharedPreferences.getString("userId", null)
+    }
 
+    private fun navigateToLoginActivity() {
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish() // Close the main activity
+    }
 }

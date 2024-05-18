@@ -15,47 +15,86 @@ import com.example.l3ezlaapp.Adapter.ColorAdapter
 import com.example.l3ezlaapp.Adapter.SliderAdapter
 import com.example.l3ezlaapp.Model.ItemModel
 import com.example.l3ezlaapp.Model.SliderModel
+import com.google.firebase.auth.FirebaseAuth
 
-class DetailActivity : AppCompatActivity() {
+class DetailActivity : BaseActivity() {
     private lateinit var binding: ActivityDetailBinding
-    private lateinit var item: ItemModel // Assuming ItemModel has a field isLiked
+    private lateinit var item: ItemModel
+    private var numberOder = 1
+    private lateinit var managmentCart: ManagmentCart
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Get item from intent
-        item = intent.getParcelableExtra("object") ?: ItemModel()
+        managmentCart = ManagmentCart(this)
 
-        // Set initial like button state
-//        updateLikeButtonState(item.isLiked)
+        getBundle()
+        banners()
+        initLists()
+    }
 
-        val favicon = findViewById<ImageView>(R.id.favBtn)
+    private fun initLists() {
+//        val sizeList = ArrayList<String>()
+//        for (size in item.size) {
+//            sizeList.add(size.toString())
+//        }
 
-        // Set click listener for the favicon
-        favicon.setOnClickListener {
-            // Update the isLiked field of the ItemModel
-            item.isLiked = !item.isLiked
+//        binding.sizeList.adapter = SizeAdapter(sizeList)
+//        binding.sizeList.layoutManager =
+//            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
-            // Change the icon based on the isLiked field
-            if (item.isLiked) {
-                favicon.setImageResource(R.drawable.liked) // Change to liked icon
-            } else {
-                favicon.setImageResource(R.drawable.fav_icon) // Change to unliked icon
-            }
+        val colorList = ArrayList<String>()
+        for (imageUrl in item.picUrl) {
+            colorList.add(imageUrl)
+        }
+
+        binding.colorList.adapter = ColorAdapter(colorList)
+        binding.colorList.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+    }
+
+    private fun banners() {
+        val sliderItems = ArrayList<SliderModel>()
+        for (imageUrl in item.picUrl) {
+            sliderItems.add(SliderModel(imageUrl))
+        }
+
+        binding.slider.adapter = SliderAdapter(sliderItems, binding.slider)
+        binding.slider.clipToPadding = true
+        binding.slider.clipChildren = true
+        binding.slider.offscreenPageLimit = 1
+
+
+        if (sliderItems.size > 1) {
+            binding.dotIndicator.visibility = View.VISIBLE
+//            binding.dotIndicator.attachTo(binding.viewpagerSlider)
+            binding.dotIndicator.setViewPager2(binding.slider)
+
+        }else {
+            binding.dotIndicator.visibility = View.GONE
+
         }
     }
-    // Update like button state based on isLiked field
-//    private fun updateLikeButtonState(isLiked: Boolean) {
-//        if (isLiked) {
-//            binding.favBtn.setImageResource(R.drawable.liked)
-//        } else {
-//            binding.favBtn.setImageResource(R.drawable.fav_icon)
-//        }
-//    }
-}
 
+    private fun getBundle() {
+        item = intent.getParcelableExtra("object")!!
+
+        binding.titleTxt.text = item.title
+        binding.descriptionTxt.text = item.description
+        binding.priceTxt.text = "MAD" + item.price
+        binding.addToCartBtn.setOnClickListener {
+            val userId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
+            managmentCart.addItemsToCart(item, userId)
+        }
+        binding.backBtn.setOnClickListener { finish() }
+        binding.cartBtn.setOnClickListener {
+            startActivity(Intent(this@DetailActivity, CartActivity::class.java))
+        }
+    }
+
+}
 
 //class DetailActivity : AppCompatActivity() {
 //    private lateinit var binding: ActivityDetailBinding

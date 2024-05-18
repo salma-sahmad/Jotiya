@@ -17,4 +17,6 @@
     <style name="Theme.L3ezlaApp" parent="Base.Theme.L3ezlaApp">
         <item name="android:windowTranslucentNavigation">true</item>
     </style>
+
+
 </resources>

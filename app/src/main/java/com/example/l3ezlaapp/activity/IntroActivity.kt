@@ -1,6 +1,7 @@
 package com.example.l3ezlaapp.activity
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.method.LinkMovementMethod
@@ -17,10 +18,16 @@ import com.google.firebase.database.FirebaseDatabase
 
 class IntroActivity : BaseActivity() {
     private lateinit var binding:ActivityIntroBinding
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityIntroBinding.inflate(layoutInflater) // Initialize the binding
         setContentView(binding.root)
+
+
+
+
 
 //        FirebaseApp.initializeApp(this)
 //        FirebaseApp.initializeApp(this)
@@ -44,6 +51,9 @@ class IntroActivity : BaseActivity() {
             val intent = Intent(this@IntroActivity, RegisterActivity::class.java)
             startActivity(intent)
         }
+
+
+
 
 //        // Find the TextView containing the "Don't have an account?" text
 //        val textViewRegister = findViewById<TextView>(R.id.startregister)
@@ -69,4 +79,7 @@ class IntroActivity : BaseActivity() {
 //        // Enable clickable links in the TextView
 //        textViewRegister.movementMethod = LinkMovementMethod.getInstance()
     }
-    }
+
+
+
+}

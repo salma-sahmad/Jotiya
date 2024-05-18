@@ -16,23 +16,36 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@drawable/shoes" />
 
-    <ImageView
-        android:id="@+id/imageView6"
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView6"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:srcCompat="@drawable/btn_3"-->
+<!--        app:tint="@color/grey" />-->
+
+    <!-- CheckBox for Like button -->
+
+    <CheckBox
+        android:id="@+id/likeCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="5dp"
+        app:useMaterialThemeColors="false"
+        android:button="@drawable/selector_heart"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/btn_3"
-        app:tint="@color/grey" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/priceTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="$-"
+        android:text="-MAD"
         android:textSize="18sp"
         android:textColor="@color/black"
         android:textStyle="bold"

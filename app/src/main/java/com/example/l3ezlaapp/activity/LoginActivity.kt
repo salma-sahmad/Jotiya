@@ -1,72 +1,77 @@
 package com.example.l3ezlaapp.activity
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.l3ezlaapp.databinding.ActivityLoginBinding
+import com.example.l3ezlaapp.R
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityLoginBinding
+    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var auth: FirebaseAuth
-    private val db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_login)
 
+        sharedPreferences = getSharedPreferences("user_data", MODE_PRIVATE)
         auth = FirebaseAuth.getInstance()
 
-        binding.apply {
-            loginButton.setOnClickListener {
-                if (validateInputs()) {
-                    signInUser()
-                }
-            }
+        val usernameEditText = findViewById<EditText>(R.id.username)
+        val passwordEditText = findViewById<EditText>(R.id.password)
+        val loginButton = findViewById<Button>(R.id.loginButton)
 
-            registerLogin.setOnClickListener {
-                val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
-                startActivity(intent)
-            }
-        }
-    }
+        // Clear the fields when the activity starts
+        usernameEditText.text.clear()
+        passwordEditText.text.clear()
 
-    private fun validateInputs(): Boolean {
-        val email = binding.username.text.toString().trim()
-        val password = binding.password.text.toString().trim()
+        // Check if the user is already logged in
+        checkLoginState()
 
-        if (email.isEmpty() || password.isEmpty()) {
-            showToast("Email and password cannot be empty")
-            return false
-        }
-        return true
-    }
+        loginButton.setOnClickListener {
+            val username = usernameEditText.text.toString()
+            val password = passwordEditText.text.toString()
 
-    private fun signInUser() {
-        val email = binding.username.text.toString().trim()
-        val password = binding.password.text.toString().trim()
-
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    val user = auth.currentUser
-                    if (user != null) {
-                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                        intent.putExtra("email", user.email)
-                        intent.putExtra("username", user.displayName)
-                        startActivity(intent)
+            if (username.isNotEmpty() && password.isNotEmpty()) {
+                // Perform login logic with Firebase Authentication
+                auth.signInWithEmailAndPassword(username, password)
+                    .addOnCompleteListener(this) { task ->
+                        if (task.isSuccessful) {
+                            val userId = auth.currentUser?.uid
+                            saveLoginState(true, userId)
+                            navigateToMainActivity()
+                        } else {
+                            Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show()
+                        }
                     }
-                } else {
-                    showToast("Authentication failed: ${task.exception?.message}")
-                }
+            } else {
+                Toast.makeText(this, "Please enter username and password.", Toast.LENGTH_SHORT).show()
             }
+        }
     }
 
-    private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    private fun checkLoginState() {
+        val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
+        if (isLoggedIn) {
+            navigateToMainActivity()
+        }
+    }
+
+    private fun saveLoginState(isLoggedIn: Boolean, userId: String?) {
+        val editor = sharedPreferences.edit()
+        editor.putBoolean("isLoggedIn", isLoggedIn)
+        editor.putString("userId", userId)
+        editor.apply()
+    }
+
+    private fun navigateToMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish() // Close the login activity
     }
 }

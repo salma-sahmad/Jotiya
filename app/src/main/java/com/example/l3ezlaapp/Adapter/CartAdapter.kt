@@ -32,8 +32,8 @@ class CartAdapter(
         val item = listItemSelected[position]
 
         holder.binding.titleTxt.text = item.title
-        holder.binding.feeEachItem.text = "$${item.price}"
-        holder.binding.totalEachItem.text = "$${item.price * item.numberInCart}"
+        holder.binding.feeEachItem.text = "${item.price} MAD"
+        holder.binding.totalEachItem.text = "${item.price * item.numberInCart} MAD"
         holder.binding.numberItemTxt.text = item.numberInCart.toString()
 
         Glide.with(holder.itemView.context)

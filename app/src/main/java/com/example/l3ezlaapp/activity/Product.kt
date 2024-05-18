@@ -7,7 +7,8 @@ data class Product(
     var title: String = "",
     var description: String = "",
     var imageUrls: ArrayList<String> = ArrayList(),
-    var price: Double = 0.0
+    var price: Double = 0.0,
+    var userID: String =""
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString() ?: "",

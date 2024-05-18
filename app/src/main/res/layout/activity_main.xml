@@ -86,21 +86,21 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <EditText
-        android:id="@+id/editTextTextPersonName"
-        android:layout_width="match_parent"
-        android:layout_height="47dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/edittext_background"
-        android:drawableStart="@drawable/search_icon"
-        android:drawablePadding="8dp"
-        android:ems="10"
-        android:hint="Search anything"
-        android:inputType="textPersonName"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="16dp" />
+<!--    <EditText-->
+<!--        android:id="@+id/editTextTextPersonName"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="47dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:background="@drawable/edittext_background"-->
+<!--        android:drawableStart="@drawable/search_icon"-->
+<!--        android:drawablePadding="8dp"-->
+<!--        android:ems="10"-->
+<!--        android:hint="Search anything"-->
+<!--        android:inputType="textPersonName"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        tools:layout_editor_absoluteX="16dp" />-->
 
-<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+            <!--            <androidx.constraintlayout.widget.ConstraintLayout-->
 <!--                android:layout_width="match_parent"-->
 <!--                android:layout_height="match_parent">-->
 
@@ -142,7 +142,20 @@
 <!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="12sp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"
+                />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:layout_marginTop="16dp">
@@ -161,8 +174,8 @@
             android:id="@+id/viewpagerSlider"
             android:layout_width="match_parent"
             android:layout_height="160dp"
-            android:paddingStart="24dp"
-            android:paddingEnd="24dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -182,7 +195,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/viewpagerSlider"
-            app:selectedDotColor="@color/purple"
+            app:selectedDotColor="@color/chocolate"
             tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -437,8 +450,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/viewPopular" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
-    </ScrollView>
+
 
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -463,6 +475,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:layout_weight="0.25"
                 android:orientation="vertical"
                 android:padding="3dp">
@@ -476,19 +489,20 @@
                     android:layout_weight="0.2"
                     app:srcCompat="@drawable/btn_1" />
 
-                <TextView
-                    android:id="@+id/textView169"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:text="Explore"
-                    android:textAlignment="center"
-                    android:textColor="@color/white" />
+                <!--                <TextView-->
+                <!--                    android:id="@+id/textView169"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginTop="2dp"-->
+                <!--                    android:text="Explore"-->
+                <!--                    android:textAlignment="center"-->
+                <!--                    android:textColor="@color/white" />-->
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:layout_weight="0.25"
                 android:orientation="vertical"
                 android:padding="3dp">
@@ -502,19 +516,20 @@
                     android:layout_weight="0.2"
                     app:srcCompat="@drawable/btn_3" />
 
-                <TextView
-                    android:id="@+id/textView129"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:text="Likes"
-                    android:textAlignment="center"
-                    android:textColor="@color/white" />
+                <!--                <TextView-->
+                <!--                    android:id="@+id/textView129"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginTop="2dp"-->
+                <!--                    android:text="Likes"-->
+                <!--                    android:textAlignment="center"-->
+                <!--                    android:textColor="@color/white" />-->
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:layout_weight="0.25"
                 android:orientation="vertical"
                 android:padding="3dp">
@@ -528,19 +543,20 @@
                     android:layout_weight="0.2"
                     app:srcCompat="@drawable/btn1" />
 
-                <TextView
-                    android:id="@+id/textView178"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:text="Add"
-                    android:textAlignment="center"
-                    android:textColor="@color/white" />
+                <!--                <TextView-->
+                <!--                    android:id="@+id/textView178"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_margin="2dp"-->
+                <!--                    android:text="Add"-->
+                <!--                    android:textAlignment="center"-->
+                <!--                    android:textColor="@color/white" />-->
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:layout_weight="0.25"
                 android:orientation="vertical"
                 android:padding="3dp">
@@ -554,19 +570,20 @@
                     android:layout_weight="0.2"
                     app:srcCompat="@drawable/btn_2" />
 
-                <TextView
-                    android:id="@+id/textView187"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Cart"
-                    android:textAlignment="center"
-                    android:textColor="@color/white" />
+                <!--                <TextView-->
+                <!--                    android:id="@+id/textView187"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginTop="4dp"-->
+                <!--                    android:text="Cart"-->
+                <!--                    android:textAlignment="center"-->
+                <!--                    android:textColor="@color/white" />-->
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:layout_weight="0.25"
                 android:orientation="vertical"
                 android:padding="3dp">
@@ -580,14 +597,14 @@
                     android:layout_weight="0.2"
                     app:srcCompat="@drawable/btn_5" />
 
-                <TextView
-                    android:id="@+id/textView188"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Profile"
-                    android:textAlignment="center"
-                    android:textColor="@color/white" />
+                <!--                <TextView-->
+                <!--                    android:id="@+id/textView188"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginTop="4dp"-->
+                <!--                    android:text="Profile"-->
+                <!--                    android:textAlignment="center"-->
+                <!--                    android:textColor="@color/white" />-->
             </LinearLayout>
 
 
@@ -900,4 +917,6 @@
 <!--        app:maxImageSize="30dp"-->
 <!--        app:tint="@color/white" />-->
 <!--    </androidx.coordinatorlayout.widget.CoordinatorLayout>-->
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

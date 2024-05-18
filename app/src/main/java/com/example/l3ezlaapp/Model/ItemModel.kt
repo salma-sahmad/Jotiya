@@ -9,8 +9,8 @@ data class ItemModel(
     var picUrl: ArrayList<String> = ArrayList(),
     var price: Double = 0.0,
     var numberInCart: Int = 0,
-    var isLiked: Boolean = false //  field to track if the item is liked
-
+    var isLiked: Boolean = false, //  field to track if the item is liked
+    var userID: String = ""
 ): Parcelable {
     constructor(parcel: Parcel):this(
         parcel.readString().toString(),
