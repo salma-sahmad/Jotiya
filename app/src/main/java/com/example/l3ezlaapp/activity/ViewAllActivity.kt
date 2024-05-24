@@ -9,10 +9,14 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.l3ezlaapp.Adapter.PopularAdapter
 import com.example.l3ezlaapp.Model.ItemModel
 import com.example.l3ezlaapp.R
+import androidx.appcompat.widget.SearchView
 import com.example.l3ezlaapp.databinding.ActivityViewallBinding
 
 class ViewAllActivity : AppCompatActivity() {
     private lateinit var binding: ActivityViewallBinding
+    private lateinit var adapter: PopularAdapter
+    private val productsList = mutableListOf<ItemModel>()
+    private val filteredList = mutableListOf<ItemModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,13 +24,16 @@ class ViewAllActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Retrieve the list of products from the intent
-        val productsList: ArrayList<ItemModel>? = intent.getParcelableArrayListExtra("productsList")
+        val intentProductsList: ArrayList<ItemModel>? = intent.getParcelableArrayListExtra("productsList")
+        if (intentProductsList != null) {
+            productsList.addAll(intentProductsList)
+            filteredList.addAll(intentProductsList)
+        }
 
         // Set up the RecyclerView
-        productsList?.let {
-            binding.viewAllRecyclerView.layoutManager = GridLayoutManager(this, 2)
-            binding.viewAllRecyclerView.adapter = PopularAdapter(it)
-        }
+        binding.viewAllRecyclerView.layoutManager = GridLayoutManager(this, 2)
+        adapter = PopularAdapter(filteredList)
+        binding.viewAllRecyclerView.adapter = adapter
 
         findViewById<ImageView>(R.id.imageView11).setOnClickListener {
             startActivity(Intent(this@ViewAllActivity, MainActivity::class.java).apply {
@@ -36,6 +43,37 @@ class ViewAllActivity : AppCompatActivity() {
 
         binding.backBtn.setOnClickListener { finish() }
         setupNavigation()
+        setupSearchView()
+    }
+
+
+    private fun setupSearchView() {
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                filterProducts(query)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterProducts(newText)
+                return true
+            }
+        })
+    }
+
+    private fun filterProducts(query: String?) {
+        val searchQuery = query?.lowercase() ?: ""
+        filteredList.clear()
+        if (searchQuery.isEmpty()) {
+            filteredList.addAll(productsList)
+        } else {
+            for (product in productsList) {
+                if (product.title.lowercase().contains(searchQuery) || product.description.lowercase().contains(searchQuery)) {
+                    filteredList.add(product)
+                }
+            }
+        }
+        adapter.notifyDataSetChanged()
     }
 
     private fun setupNavigation() {

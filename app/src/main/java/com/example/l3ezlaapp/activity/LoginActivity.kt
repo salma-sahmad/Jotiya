@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.l3ezlaapp.R
@@ -26,6 +27,7 @@ class LoginActivity : AppCompatActivity() {
         val usernameEditText = findViewById<EditText>(R.id.username)
         val passwordEditText = findViewById<EditText>(R.id.password)
         val loginButton = findViewById<Button>(R.id.loginButton)
+        val register = findViewById<TextView>(R.id.registerLogin)
 
         // Clear the fields when the activity starts
         usernameEditText.text.clear()
@@ -62,6 +64,10 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "Please enter username and password.", Toast.LENGTH_SHORT)
                     .show()
             }
+        }
+        register.setOnClickListener {
+            val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
+            startActivity(intent)
         }
     }
 

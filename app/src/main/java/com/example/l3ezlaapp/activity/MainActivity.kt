@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import androidx.appcompat.widget.SearchView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -29,6 +30,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var auth: FirebaseAuth
+    private val filteredProducts = mutableListOf<ItemModel>()
+    private val products = mutableListOf<ItemModel>()
+    private lateinit var adapter: PopularAdapter
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,11 +58,18 @@ class MainActivity : AppCompatActivity() {
             viewModel.addProductToPopular(postedProduct)
         }
 
+        initUserName()
 
         initBanner()
         userId?.let { initPopular(it) }
-
         setupNavigation()
+        setupSearchView()
+    }
+
+    private fun initUserName() {
+        val currentUser = auth.currentUser
+        val userName = currentUser?.displayName ?: "User"
+        binding.textView3.text = userName
     }
 
     private fun initBanner() {
@@ -91,8 +104,12 @@ class MainActivity : AppCompatActivity() {
         binding.progressBarPopular.visibility = View.VISIBLE
         viewModel.loadPopular().observe(this, Observer<List<ItemModel>> { items ->
             items?.let {
+                products.clear()
+                products.addAll(it)
+                filteredProducts.clear()
+                filteredProducts.addAll(it)
                 binding.viewPopular.layoutManager = GridLayoutManager(this@MainActivity, 2)
-                val adapter = PopularAdapter(it as MutableList<ItemModel>)
+                adapter = PopularAdapter(filteredProducts)
                 binding.viewPopular.adapter = adapter
                 binding.progressBarPopular.visibility = View.GONE
 
@@ -104,6 +121,36 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    private fun setupSearchView() {
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                filterProducts(query)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterProducts(newText)
+                return true
+            }
+        })
+    }
+
+    private fun filterProducts(query: String?) {
+        val searchQuery = query?.lowercase() ?: ""
+        filteredProducts.clear()
+        if (searchQuery.isEmpty()) {
+            filteredProducts.addAll(products)
+        } else {
+            for (product in products) {
+                if (product.title.lowercase().contains(searchQuery) ||
+                    product.description.lowercase().contains(searchQuery)) {
+                    filteredProducts.add(product)
+                }
+            }
+        }
+        adapter.notifyDataSetChanged()
     }
 
     private fun setupNavigation() {
