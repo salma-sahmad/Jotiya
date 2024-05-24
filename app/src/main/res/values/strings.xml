@@ -2,7 +2,7 @@
     <string name="app_name">Jotiya</string>
     <string name="intro_titre">L3ezla</string>
     <string name="intro_slogon">bla bla do ur shopping bli bli yoy yoyy style\n bla bla do ur shopping bli bli yoy yoyy</string>
-    <string name="intro_register">Already have an account? <font color="#6033ba">Sign In</font></string>
+    <string name="intro_register"><font color="#DCC4A4">Don\'t have an account?</font> <font color="#226D68">Register</font></string>
     <string name="logintoregister"><font color="#DCC4A4">Don\'t have an account?</font> <font color="#ECF8F6">Register</font></string>
     <string name="registertologin"><font color="#DCC4A4">Already have an account?</font>  <font color="#ECF8F6">Sign In</font></string>
     <string name="show_less">Show less</string>

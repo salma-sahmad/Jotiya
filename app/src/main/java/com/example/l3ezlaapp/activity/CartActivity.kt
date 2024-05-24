@@ -33,7 +33,7 @@ class CartActivity : AppCompatActivity() {
         userId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
 
         // Load user-specific cart items from Firestore
-        loadCartFromFirestore(userId)
+//        loadCartFromFirestore(userId)
     }
 
     private fun initCartList() {

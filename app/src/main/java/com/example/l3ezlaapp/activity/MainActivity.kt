@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 
@@ -51,6 +52,7 @@ class MainActivity : AppCompatActivity() {
             viewModel.addProductToPopular(postedProduct)
         }
 
+
         initBanner()
         userId?.let { initPopular(it) }
 
@@ -85,16 +87,25 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initPopular(s: String) {
+    private fun initPopular(userId: String) {
         binding.progressBarPopular.visibility = View.VISIBLE
         viewModel.loadPopular().observe(this, Observer<List<ItemModel>> { items ->
             items?.let {
                 binding.viewPopular.layoutManager = GridLayoutManager(this@MainActivity, 2)
-                binding.viewPopular.adapter = PopularAdapter(it as MutableList<ItemModel>)
+                val adapter = PopularAdapter(it as MutableList<ItemModel>)
+                binding.viewPopular.adapter = adapter
                 binding.progressBarPopular.visibility = View.GONE
+
+                // Setting up the "View All" button
+                binding.textView12.setOnClickListener {
+                    val intent = Intent(this@MainActivity, ViewAllActivity::class.java)
+                    intent.putParcelableArrayListExtra("productsList", ArrayList(items))
+                    startActivity(intent)
+                }
             }
         })
     }
+
     private fun setupNavigation() {
         val cartImageView = findViewById<ImageView>(R.id.imageView163)
         val profileImageView = findViewById<ImageView>(R.id.imageView166)
@@ -132,6 +143,8 @@ class MainActivity : AppCompatActivity() {
                 startActivity(Intent(this@MainActivity, WishlistActivity::class.java))
             }
         }
+
+
     }
 
     private fun isUserLoggedIn(): Boolean {

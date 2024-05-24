@@ -60,7 +60,7 @@
                 android:id="@+id/titreTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Titre du produit"
+                android:text="Product title"
                 android:layout_margin="16dp"/>
 
                 <EditText
@@ -83,7 +83,7 @@
                     android:id="@+id/descriptionEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Enter product title"
+                    android:hint="Enter product details"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"/>
@@ -91,14 +91,14 @@
                 android:id="@+id/prixTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Prix"
+                android:text="Price"
                 android:layout_margin="16dp"/>
 
                 <EditText
                     android:id="@+id/priceEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Enter product title"
+                    android:hint=""
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"/>
@@ -145,18 +145,6 @@
 
 
                     <Button
-                        android:id="@+id/selectPicBtn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@color/chocolate"
-                        android:text="select pictures"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/addPicBtn"
-                        app:layout_constraintHorizontal_bias="0.044"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <Button
                         android:id="@+id/addPicBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -164,8 +152,6 @@
                         android:text="Add pictures"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toEndOf="@+id/selectPicBtn"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 

@@ -53,14 +53,14 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="76dp"
                     android:layout_weight="1"
-                    android:text="My Wishlist"
+                    android:text="All products"
                     android:textColor="@color/black"
                     android:textSize="22sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/LikeView"
+                android:id="@+id/viewAllRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="770dp" />
 
