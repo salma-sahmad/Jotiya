@@ -5,7 +5,7 @@ import android.os.Parcelable
 import java.sql.Date
 
 data class ItemModel(
-    var id: Int = 0,
+    var id: Int =0,
     var title: String = "",
     var description: String = "",
     var picUrl: ArrayList<String> = ArrayList(),
