@@ -34,6 +34,7 @@ class ViewAllActivity : AppCompatActivity() {
             })
         }
 
+        binding.backBtn.setOnClickListener { finish() }
         setupNavigation()
     }
 
