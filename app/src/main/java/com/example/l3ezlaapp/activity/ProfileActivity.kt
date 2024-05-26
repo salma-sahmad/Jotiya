@@ -98,6 +98,12 @@ class ProfileActivity : AppCompatActivity() {
             clearLoginState()
             navigateToLoginActivity()
         }
+
+        val order = findViewById<Button>(R.id.orderBtn)
+        order.setOnClickListener {
+            val intent = Intent(this@ProfileActivity, OrdersActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun clearLoginState() {
@@ -111,6 +117,8 @@ class ProfileActivity : AppCompatActivity() {
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
     }
+
+
 
 
 

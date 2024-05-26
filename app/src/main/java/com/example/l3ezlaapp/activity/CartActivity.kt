@@ -1,5 +1,6 @@
 package com.example.l3ezlaapp.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +18,8 @@ class CartActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCartBinding
     private lateinit var managementCart: ManagmentCart
     private lateinit var userId: String
+    private var totalAmount: Double = 0.0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +37,10 @@ class CartActivity : AppCompatActivity() {
 
         // Load user-specific cart items from Firestore
 //        loadCartFromFirestore(userId)
+
+        binding.checkout.setOnClickListener {
+            proceedToCheckout()
+        }
     }
 
     private fun initCartList() {
@@ -58,6 +65,7 @@ class CartActivity : AppCompatActivity() {
         val delivery = 10.0
         val total = managementCart.getTotalFee() + delivery
         val itemTotal = managementCart.getTotalFee()
+        totalAmount = total
 
         with(binding) {
             totalFeeTxt.text = "$itemTotal MAD"
@@ -93,5 +101,15 @@ class CartActivity : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 // Handle errors
             }
+    }
+
+
+    private fun proceedToCheckout() {
+        val cartItems = managementCart.getListCart()
+        val intent = Intent(this@CartActivity, OrdersActivity::class.java).apply {
+            putParcelableArrayListExtra("cartItems", ArrayList(cartItems))
+            putExtra("totalAmount", totalAmount)
+        }
+        startActivity(intent)
     }
 }
