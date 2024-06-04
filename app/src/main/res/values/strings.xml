@@ -8,4 +8,7 @@
     <string name="show_less">Show less</string>
     <string name="show_more">Show more</string>
     <string name="bannerTitle">Your Thrift Store\n \t\t\t\t\t\tJust Between you<font color="#5D4227">r Hands</font></string>
+    <string name="welcome_title">Welcome to Jotiya!</string>
+    <string name="welcome_message">Thank you for signing up. We hope you enjoy our service!</string>
+    <string name="default_notification_channel_id">default_channel</string>
 </resources>

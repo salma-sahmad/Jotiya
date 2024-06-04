@@ -1,16 +1,23 @@
 package com.example.l3ezlaapp.activity
 
-import com.example.l3ezlaapp.Admin.AdminActivity
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import com.example.l3ezlaapp.Admin.AdminActivity
 import com.example.l3ezlaapp.R
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.RemoteMessage
+import android.Manifest
 
 class LoginActivity : AppCompatActivity() {
 
@@ -21,6 +28,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        requestNotificationPermission()
         sharedPreferences = getSharedPreferences("user_data", MODE_PRIVATE)
         auth = FirebaseAuth.getInstance()
 
@@ -52,7 +60,11 @@ class LoginActivity : AppCompatActivity() {
                         .addOnCompleteListener(this) { task ->
                             if (task.isSuccessful) {
                                 val userId = auth.currentUser?.uid
+                                val isFirstTime = isFirstTimeUser(userId)
                                 saveLoginState(true, userId)
+                                if (isFirstTime) {
+                                    sendWelcomeNotification(userId)
+                                }
                                 navigateToMainActivity()
                             } else {
                                 Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT)
@@ -65,6 +77,7 @@ class LoginActivity : AppCompatActivity() {
                     .show()
             }
         }
+
         register.setOnClickListener {
             val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
             startActivity(intent)
@@ -85,9 +98,48 @@ class LoginActivity : AppCompatActivity() {
         editor.apply()
     }
 
+    private fun isFirstTimeUser(userId: String?): Boolean {
+        val isFirstTime = sharedPreferences.getBoolean("isFirstTime_$userId", true)
+        if (isFirstTime) {
+            val editor = sharedPreferences.edit()
+            editor.putBoolean("isFirstTime_$userId", false)
+            editor.apply()
+        }
+        return isFirstTime
+    }
+
+    private fun sendWelcomeNotification(userId: String?) {
+        // Use FirebaseMessaging to send a notification
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                return@addOnCompleteListener
+            }
+            // Get new FCM registration token
+            val token = task.result
+
+            // Send notification message
+            val message = RemoteMessage.Builder("$token@fcm.googleapis.com")
+                .setMessageId(Integer.toString((Math.random() * 1000).toInt()))
+                .addData("title", "Welcome to Jotiya")
+                .addData("body", "Thank you for signing up!")
+                .build()
+
+            FirebaseMessaging.getInstance().send(message)
+        }
+    }
+
     private fun navigateToMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish() // Close the login activity
     }
+
+    private fun requestNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), 101)
+            }
+        }
+    }
+
 }
