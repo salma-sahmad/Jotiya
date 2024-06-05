@@ -2,6 +2,7 @@ package com.example.l3ezlaapp.Helper
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+//ne marche pas
 
 abstract class SwipeToDelete : ItemTouchHelper.Callback() {
 

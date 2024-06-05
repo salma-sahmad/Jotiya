@@ -1,5 +1,6 @@
-//package com.example.l3ezlaapp.model
-//
+package com.example.l3ezlaapp.Model
+//**** ne marche pas probleme de gradle**
+
 //import androidx.room.Entity
 //import androidx.room.PrimaryKey
 //

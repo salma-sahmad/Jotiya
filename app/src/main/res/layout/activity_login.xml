@@ -40,7 +40,7 @@
                 android:id="@+id/username"
                 android:layout_marginTop="40dp"
                 android:padding="8dp"
-                android:hint="Username"
+                android:hint="email"
                 android:textColor="@color/black"
                 android:drawablePadding="8dp"/>
 

@@ -1,8 +1,8 @@
-//package com.example.l3ezlaapp.data
-//
+package com.example.l3ezlaapp.data
+//*** ne marche pas prblm de gradle**
+
 //import androidx.room.*
-//import com.example.l3ezlaapp.model.ItemsModel
-//
+//import com.example.l3ezlaapp.Model.ItemsModel
 //@Dao
 //interface CartDao {
 //
